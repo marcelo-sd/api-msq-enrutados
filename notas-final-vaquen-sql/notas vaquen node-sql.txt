@@ -1,0 +1,22 @@
+notas vaquen node-sql
+
+
+  "type": "module",  para poder utilizar modulos
+
+
+despues de instalar nodemon 
+npm i nodemon -d
+
+tenemos que configurarlo dentro de  scrips
+ "scripts": {
+    "dev":"nodemon index.js"
+ 
+  },
+
+
+mysql2 es un modulo pra trabajar(conectarse) con mysql
+
+
+npm i mysql2 para instalar
+
+
