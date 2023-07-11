@@ -1,5 +1,5 @@
 import {createPool} from 'mysql2/promise'
-//aqui le digo que utilic a mysql como promesas
+//aqui le digo que utilice a mysql como promesas
 //createconccion es como un solo hiloo de coneccion
 //es un conjunto de conecciones que podemos usar
 

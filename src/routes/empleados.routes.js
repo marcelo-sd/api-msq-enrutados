@@ -11,10 +11,14 @@ router.get("/empleados", getEmpleados);
 //el id es un parametro para identificar el empleado en singular
 router.get("/empleados/:id", getEmpleado);
 
+
+
 router.post("/empleados", crearEmpleados);
 
 router.put("/empleados", actualizarEmpleado);
 
-router.delete("/empleados", eliminarEmpleado);
+
+
+router.delete("/empleados/:id", eliminarEmpleado);
 
 export default router;

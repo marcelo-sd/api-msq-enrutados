@@ -11,7 +11,7 @@ const app=express()
 
 //antes de que llegues a la ruta es importante
 app.use(express.json())
-//esto es como decir que primero voy a recibir los datos y los voy a convertir a un objeto de js y luego les voy a pasar a las rutas
+//esto es como decir que primero voy a recibir los datos y los voy a convertir a un objeto de json y luego les voy a pasar a las rutas
 
 app.use(indexRoutes)
 app.use('/api/',empleadosRutas)
