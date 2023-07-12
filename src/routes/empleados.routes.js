@@ -15,10 +15,12 @@ router.get("/empleados/:id", getEmpleado);
 
 router.post("/empleados", crearEmpleados);
 
-router.put("/empleados", actualizarEmpleado);
+router.patch("/empleados/:id", actualizarEmpleado);
 
 
 
 router.delete("/empleados/:id", eliminarEmpleado);
+
+
 
 export default router;

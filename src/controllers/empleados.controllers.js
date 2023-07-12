@@ -2,10 +2,15 @@ import { pool } from "../db.js";
 //nessecitamos pool(objeto) para hacer las consultas
 
 export const getEmpleados = async (req, res) => {
+try{
+  throw new Error('BD error')
   const [rows] = await pool.query("SELECT * FROM empleados");
   res.json(rows);
 
   /*     await pool.query('SELECT * FROM empleados' esto me va a devolver filas */
+}catch(error){
+  return res.status(500).json({message:'algo salio mal'})
+}
 };
 
 export const getEmpleado = async (req, res) => {
@@ -35,7 +40,7 @@ export const crearEmpleados = async (req, res) => {
   );
 
   //ponemos filas xq me devuelve un objeto grande y solo queremos la fila
-  res.send(filas);
+
   res.send({
     id: filas.insertId,
     nombre,
@@ -43,8 +48,11 @@ export const crearEmpleados = async (req, res) => {
   });
 };
 
-export const actualizarEmpleado = (req, res) =>
-  res.send("actualizando empleado");
+
+
+
+
+
 
 export const eliminarEmpleado = async (req, res) => {
   const [result] = await pool.query(
@@ -52,14 +60,42 @@ export const eliminarEmpleado = async (req, res) => {
     [req.params.id]
   );
 
-   if (result.affectedRows <= 0)  return
-    res.status(404).json({
-      message: "empleado no encontrado",
-    });  
+
   
+if(result.affectedRows <=0)return res.status(404).json({
+  message: 'empleado no esncontrado'
+})
 
-  console.log(result);
 
-  res.sendStatus(204); 
+
+
+ console.log(result)
+
+ /*   res.sendStatus(204);  */
+  res.send('empleado eliminado')  
+
   //aqui le vamos a enviar un estado pra que el cliente sepa que se elimino correctamente
 };
+
+
+export const actualizarEmpleado = async(req, res) =>{
+const {id}=req.params
+const{nombre, salario}=req.body
+
+
+  const result=await pool.query('UPDATE empleados SET nombre=IFNULL(?,nombre) , salario=IFNULL(?,salario) WHERE idempleados=?',[nombre,salario,id])
+ 
+  console.log(result)  
+
+ if(result.affectedRows ===0)return res.status(404).json({
+  message:'empleado no encontrado'
+})
+ 
+
+
+const [filas]=await pool.query('SELECT * FROM empleados WHERE idempleados=?',[id]) 
+
+
+res.json(filas[0])  
+}
+ 
