@@ -3,7 +3,8 @@ import { pool } from "../db.js";
 
 export const getEmpleados = async (req, res) => {
 try{
-  throw new Error('BD error')
+  //throw new Error('BD error')
+  //esto es para lanzar un nuevo error
   const [rows] = await pool.query("SELECT * FROM empleados");
   res.json(rows);
 
@@ -14,6 +15,7 @@ try{
 };
 
 export const getEmpleado = async (req, res) => {
+ try{
   const [filas] = await pool.query(
     "SELECT * FROM empleados WHERE idempleados=?",
     [req.params.id]
@@ -25,6 +27,10 @@ export const getEmpleado = async (req, res) => {
     });
   /* console.log(filas)  */
   res.json(filas[0]);
+ }catch(error){
+
+ return res.status(500).json({message:'algo salio mal'})
+ }
 
   //podemos obtener los parametros a traves de req ya que vinen por url
 
@@ -32,6 +38,7 @@ export const getEmpleado = async (req, res) => {
 };
 
 export const crearEmpleados = async (req, res) => {
+ try{
   const { nombre, salario } = req.body;
   //de req.body voy a tomar nombre y salario(osea lo que me envian)
   const [filas] = await pool.query(
@@ -46,6 +53,11 @@ export const crearEmpleados = async (req, res) => {
     nombre,
     salario,
   });
+ }catch(error){
+  return res.status(500).json({
+    message:'algo salio mal'
+  })
+ }
 };
 
 
@@ -55,6 +67,7 @@ export const crearEmpleados = async (req, res) => {
 
 
 export const eliminarEmpleado = async (req, res) => {
+ try{
   const [result] = await pool.query(
     "DELETE  FROM empleados WHERE idempleados=?",
     [req.params.id]
@@ -75,11 +88,17 @@ if(result.affectedRows <=0)return res.status(404).json({
   res.send('empleado eliminado')  
 
   //aqui le vamos a enviar un estado pra que el cliente sepa que se elimino correctamente
+ }catch(error){
+  return res.status(500).json({
+    message:'algo salio mal'
+  })
+ }
 };
 
 
 export const actualizarEmpleado = async(req, res) =>{
-const {id}=req.params
+try{
+  const {id}=req.params
 const{nombre, salario}=req.body
 
 
@@ -97,5 +116,10 @@ const [filas]=await pool.query('SELECT * FROM empleados WHERE idempleados=?',[id
 
 
 res.json(filas[0])  
+}catch(error){
+  return res.status(500).json({
+    message:'algo salio mal'
+  })
+ }
 }
  
