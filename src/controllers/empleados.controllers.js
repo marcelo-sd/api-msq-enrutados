@@ -97,9 +97,10 @@ if(result.affectedRows <=0)return res.status(404).json({
 
 
 export const actualizarEmpleado = async(req, res) =>{
-try{
   const {id}=req.params
-const{nombre, salario}=req.body
+  const{nombre, salario}=req.body
+try{
+
 
 
   const result=await pool.query('UPDATE empleados SET nombre=IFNULL(?,nombre) , salario=IFNULL(?,salario) WHERE idempleados=?',[nombre,salario,id])
