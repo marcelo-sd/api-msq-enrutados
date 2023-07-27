@@ -19,4 +19,6 @@ mysql2 es un modulo pra trabajar(conectarse) con mysql
 
 npm i mysql2 para instalar
 
+npm i dontve es para contener variables locales
+
 
